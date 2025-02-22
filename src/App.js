@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React, { useState } from "react";
+import UserInput from "./components/UserInput";
+import TaskModal from "./components/TaskModal";
 
 function App() {
+  const [userName, setUserName] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleUserSubmit = (name) => {
+    setUserName(name);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <img src={logo} className="App-logo" alt="logo" />
+      <UserInput onSubmit={handleUserSubmit} />
+      <TaskModal
+        open={modalOpen}
+        handleClose={handleCloseModal}
+        userName={userName}
+      />
     </div>
   );
 }
